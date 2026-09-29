@@ -6,7 +6,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 
 load_dotenv()
 url_db = os.getenv("DATABASE_URL")
-class Base(DeclarativeBase):
+class Base(DeclarativeBase): #пустой класс
     pass
 
 

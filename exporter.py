@@ -1,15 +1,10 @@
 from datetime import datetime
-
 from sqlalchemy import select
-
 from db_models import SessionLocal, WeatherForecast
 
 
 def export_to_markdown(city: str, filepath: str = "forecast.md") -> str:
-    """
-    Выгружает прогноз для указанного города в Markdown-файл.
-    Возвращает путь к созданному файлу.
-    """
+    
     session = SessionLocal()
     try:
         rows = session.scalars(

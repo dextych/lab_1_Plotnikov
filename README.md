@@ -19,7 +19,6 @@
 
 ## Технологии
 
-- **Python 3.10+**
 - **requests** — HTTP-запросы к API
 - **python-dotenv** — загрузка секретов из `.env`
 - **SQLAlchemy 2.0** — ORM и работа с БД
@@ -37,8 +36,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/ваш-логин/weather-forecast.git
-cd weather-forecast
+git clone https://github.com/dextych/lab_1_Plotnikov
 ```
 
 ### 2. Создание виртуального окружения
@@ -47,12 +45,6 @@ Windows:
 ```bash
 python -m venv venv
 venv\Scripts\activate
-```
-
-macOS / Linux:
-```bash
-python3 -m venv venv
-source venv/bin/activate
 ```
 
 ### 3. Установка зависимостей
@@ -66,14 +58,11 @@ pip install -r requirements.txt
 ### 1. Получите API-ключи
 
 **ipinfo.io (опционально):** зарегистрируйтесь на [ipinfo.io](https://ipinfo.io/signup)
-и скопируйте токен из личного кабинета. Без токена тоже работает,
-но лимит ниже — 1000 запросов в сутки.
+и скопируйте токен из личного кабинета.
 
 **OpenWeatherMap (обязательно):** зарегистрируйтесь на
 [openweathermap.org](https://openweathermap.org/api), подтвердите email
 и скопируйте ключ со страницы [API keys](https://home.openweathermap.org/api_keys).
-Новый ключ активируется в течение 10–60 минут, до этого запросы
-будут возвращать `401 Unauthorized`.
 
 ### 2. Создайте `.env` по шаблону
 
@@ -114,7 +103,7 @@ python main.py
 weather-forecast/
 ├── geo_locator.py       # определение IP и координат через ipinfo.io
 ├── weather_client.py    # запрос прогноза и агрегация по дням
-├── database.py          # модель SQLAlchemy и подключение к SQLite
+├── db_models.py          # модель SQLAlchemy и подключение к SQLite
 ├── save_forecast.py     # вставка прогноза с защитой от дубликатов
 ├── markdown_export.py   # выгрузка прогноза в Markdown
 ├── main.py              # точка входа: связывает все шаги
@@ -131,9 +120,9 @@ weather-forecast/
 |------|-----------|
 | `geo_locator.py` | Функция `check_ip()` — запрашивает ipinfo.io, возвращает словарь с IP, городом и координатами `lat`/`lon` |
 | `weather_client.py` | `get_forecast()` — запрос к OpenWeatherMap; `aggregate_forecast()` — группировка по дням и расчёт статистики |
-| `database.py` | Класс `Base`, модель `WeatherForecast`, движок SQLAlchemy, `SessionLocal`, создание таблицы |
+| `db_models.py` | Класс `Base`, модель `WeatherForecast`, движок SQLAlchemy, `SessionLocal`, создание таблицы |
 | `save_forecast.py` | `save_forecast(city, days)` — вставка через `INSERT OR IGNORE`, возвращает (вставлено, пропущено) |
-| `markdown_export.py` | `export_to_markdown(city, path)` — формирование `.md`-отчёта с таблицей |
+| `exporter.py` | `export_to_markdown(city, path)` — формирование `.md`-отчёта с таблицей |
 | `main.py` | Последовательно вызывает все шаги и печатает итог |
 
 ## Пример вывода
